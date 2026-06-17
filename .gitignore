@@ -1,0 +1,7 @@
+# Lokala Claude Code / preview-verktyg (behövs inte för sajten)
+.claude/
+
+# OS / editor
+Thumbs.db
+.DS_Store
+*.swp

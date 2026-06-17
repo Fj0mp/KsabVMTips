@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontorets VM-tips</title>
+  <meta name="description" content="Topplista och uppföljning av kontorets VM-tipskuponger mot Svenska Spels API." />
+  <link rel="preconnect" href="https://api.spela.svenskaspel.se" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <div class="brand-mark">⚽</div>
+        <div>
+          <h1 id="appTitle">Kontorets VM-tips</h1>
+          <p class="tagline">Topplista i realtid mot Svenska Spel</p>
+        </div>
+      </div>
+      <div class="header-controls">
+        <label class="round-select-wrap">
+          <span>Omgång</span>
+          <select id="roundSelect" aria-label="Välj omgång"></select>
+        </label>
+        <button id="refreshBtn" class="btn btn-ghost" title="Hämta senaste resultat">
+          <span class="refresh-icon">↻</span> Uppdatera
+        </button>
+        <button id="adminBtn" class="btn btn-primary">Hantera</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+    <section id="roundHero" class="round-hero card hidden"></section>
+
+    <div id="emptyState" class="empty-state card hidden">
+      <h2>Inga omgångar ännu</h2>
+      <p>Skapa din första spelomgång för att komma igång. Du behöver bara omgångsnumret från Svenska Spel (t.ex. <code>2583</code>).</p>
+      <button class="btn btn-primary" data-action="open-admin">Skapa spelomgång</button>
+    </div>
+
+    <div id="loadState" class="load-state hidden">
+      <div class="spinner"></div>
+      <span>Hämtar omgång…</span>
+    </div>
+
+    <div id="content" class="grid-layout hidden">
+      <section class="leaderboard card">
+        <div class="card-head">
+          <h2>Topplista</h2>
+          <span id="settledInfo" class="pill"></span>
+        </div>
+        <ol id="leaderboard" class="leaderboard-list"></ol>
+      </section>
+
+      <section class="matches card">
+        <div class="card-head">
+          <h2>Matcher</h2>
+          <span class="hint">Klicka på en match för spelfördelning</span>
+        </div>
+        <div id="matchList" class="match-list"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="app-footer wrap">
+    <span>Data från Svenska Spels öppna API · Statisk sida för GitHub Pages</span>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal card" id="modalCard">
+      <button class="modal-close" id="modalClose" aria-label="Stäng">×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- Admin drawer -->
+  <div id="adminDrawer" class="drawer hidden" role="dialog" aria-modal="true">
+    <div class="drawer-panel card">
+      <div class="drawer-head">
+        <h2>Hantera</h2>
+        <button class="modal-close" id="adminClose" aria-label="Stäng">×</button>
+      </div>
+      <div class="drawer-body" id="adminBody"></div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
